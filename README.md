@@ -26,7 +26,7 @@ set version=csgo
  Example of a custom tree (for Counter-Strike:Global Offensive) :
 : TODO - Make the proper tree view for CSGO
  custom
- | Background
+ | Background<br/>
  | Background | materials
  |            | materials | console
  |            |           | console | Available
