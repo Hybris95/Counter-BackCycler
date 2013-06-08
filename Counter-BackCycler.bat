@@ -2,15 +2,33 @@
 goto init
 :init
 :: Change here the letter corresponding to your Steam disk letter
-set steamdiskletter=E:
+set steamdiskletter=
 :: Change here the path to your Steam folder
-set steampath=E:\Jeux Complets\Steam
+set steampath=
 :: Change here the version from css to csgo
 set version=css
 :: Change here the debug status
-set debug=1
+set debug=0
 
-%steamdiskletter%
+if '%steamdiskletter%'=='' (
+	echo Configuration vide...
+	echo Par defaut le script fonctionne pour css, modifiez le si besoin
+	set /P steampath=Ecrire ici votre chemin steam (ex: C:\Program Files\Steam)
+	cd %steampath%
+	if errorlevel 1 goto errorInit
+	set steamdiskletter=%steampath:~0,2%
+	%steamdiskletter%
+	set steampath=%cd%
+) else (
+	%steamdiskletter%
+)
+goto main
+
+:errorInit
+echo %steampath% n'est pas un chemin valide, veuillez entrer un chemin valide
+goto :eof
+
+:main
 if %version%==css (
 	cd "%steampath%\steamapps\common\Counter-Strike Source\cstrike\custom"
 	mkdir Background 2>NUL
