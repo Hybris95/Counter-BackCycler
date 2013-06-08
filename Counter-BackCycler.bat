@@ -7,6 +7,8 @@ set steamdiskletter=E:
 set steampath=E:\Jeux Complets\Steam
 :: Change here the version from css to csgo
 set version=css
+:: Change here the debug status
+set debug=1
 
 %steamdiskletter%
 if %version%==css (
@@ -30,13 +32,21 @@ call :getRandomGUIdir
 if '%repert%' NEQ '' call :changeBackground
 call :startGame
 :: <DEBUG>
-echo Trace wrong : %repert%
-pause
+if %debug%==1 (
+	echo Trace wrong : %repert%
+	pause
+)
 :: </DEBUG>
 goto :eof
+
 :startGame
-start steam://rungameid/240
+if %version%==css (
+	start steam://rungameid/240
+) else if %version%==csgo (
+	start steam://rungameid/730
+)
 goto :eof
+
 :getRandomGUIdir
 set /a max=0
 set /a nbr=0
@@ -46,10 +56,12 @@ for /F "tokens=2 delims=]" %%i in ('dir /A:D /B ^| find /V /N "?" ^| find "[%nbr
 cd %repert%
 if errorlevel 1 call :wrongRepert
 goto :eof
+
 :wrongRepert
 echo %repert% >> error.log
 set repert=
 goto :eof
+
 :changeBackground
 cd "%steampath%\steamapps\common\Counter-Strike Source\cstrike\custom\Background\materials\console"
 del /F background01.vtf >NUL 2>NUL

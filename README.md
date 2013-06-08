@@ -19,7 +19,6 @@ This little script allows you to change your backgrounds of Counter-Strike (Sour
  -----------------------
  Version 1.1 :<br/>
  You can also change the game type to csgo by changing the version value<br/>
-:TODO - Start CSGO instead of CSS<br/>
  Example :<br/>
 set version=csgo<br/>
  -----------------------
